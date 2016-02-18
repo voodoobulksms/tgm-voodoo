@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+{{License}}
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="TGM_Voodoo::voodoo" title="Voodoo SMS" module="TGM_Voodoo" sortOrder="11" resource="TGM_Voodoo::voodoo"/>
+        <add id="TGM_Voodoo::voodoo_head" title="Settings" module="TGM_Voodoo" sortOrder="40"
+             parent="TGM_Voodoo::voodoo" resource="TGM_Voodoo::voodoo"/>
+        <add id="TGM_Voodoo::config" title="Configuration" module="TGM_Voodoo" sortOrder="50"
+             action="adminhtml/system_config/edit/section/tgm_voodoo_configuration"
+             resource="TGM_Voodoo::voodoo" parent="TGM_Voodoo::voodoo_head" />
+    </menu>
+</config>

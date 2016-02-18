@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <tab id="tgm_voodoo" sortOrder="2000">
+            <label>Voodoo SMS</label>
+        </tab>
+        <section id="tgm_voodoo_configuration" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+
+            <label>Basic Configuration</label>
+            <tab>tgm_voodoo</tab>
+            <resource>TGM_Voodoo::sms</resource>
+            <group id="basic_configuration" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Basic Configuration&nbsp;&nbsp;<i>Setting API Account</i>]]></label>
+                <field id="voodoo_username" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter Voodoo Username</label>
+                    <comment>Enter your Voodoo SMS API Username</comment>
+                    <tooltip>Your username must be the same as your voodoo api username</tooltip>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="voodoo_password" type="password" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter Voodoo Password</label>
+                    <comment>Enter your Voodoo SMS API Password</comment>
+                    <tooltip>Your password must be the same as your voodoo api password</tooltip>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+        </section>
+        <section id="tgm_voodoo_orders" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Order Notifications</label>
+            <tab>tgm_voodoo</tab>
+            <resource>TGM_Voodoo::sms</resource>
+            <group id="new_order" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When a New Order is Placed</label>
+                <field id="voodoo_new_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="voodoo_new_order_sender_id" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Sender ID</label>
+                    <comment>‘Company’ e.g. 'My Store’ (max: 11 alphanumeric characters. This is who the SMS will appear from when received)</comment>
+                    <tooltip>You can enter upto 11 digits or characters</tooltip>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-11</validate>
+                    <depends><field id="voodoo_new_order_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_new_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_new_order_enabled">1</field></depends>
+                </field>
+
+
+            </group>
+            <group id="hold_order" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When Order is Hold</label>
+                <field id="voodoo_hold_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="voodoo_hold_order_sender_id" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Sender ID</label>
+                    <comment>‘Company’ e.g. 'My Store’ (max: 11 alphanumeric characters. This is who the SMS will appear from when received)</comment>
+                    <tooltip>You can enter upto 11 digits or characters</tooltip>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-11</validate>
+                    <depends><field id="voodoo_hold_order_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_hold_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_hold_order_enabled">1</field></depends>
+                </field>
+
+
+            </group>
+            <group id="unhold_order" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When Order is Unhold</label>
+                <field id="voodoo_unhold_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="voodoo_unhold_order_sender_id" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Sender ID</label>
+                    <comment>‘Company’ e.g. 'My Store’ (max: 11 alphanumeric characters. This is who the SMS will appear from when received)</comment>
+                    <tooltip>You can enter upto 11 digits or characters</tooltip>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-11</validate>
+                    <depends><field id="voodoo_unhold_order_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_unhold_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_unhold_order_enabled">1</field></depends>
+                </field>
+
+
+            </group>
+            <group id="cancelled_order" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When Order is Cancelled</label>
+                <field id="voodoo_cancelled_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="voodoo_cancelled_order_sender_id" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Sender ID</label>
+                    <comment>‘Company’ e.g. 'My Store’ (max: 11 alphanumeric characters. This is who the SMS will appear from when received)</comment>
+                    <tooltip>You can enter upto 11 digits or characters</tooltip>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-11</validate>
+                    <depends><field id="voodoo_cancelled_order_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_cancelled_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_cancelled_order_enabled">1</field></depends>
+                </field>
+            </group>
+            <group id="invoiced_order" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>When Order is Invoiced</label>
+                <field id="voodoo_invoiced_order_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Notification</label>
+                    <comment>This option will send SMS when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="voodoo_invoiced_order_sender_id" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Sender ID</label>
+                    <comment>‘Company’ e.g. 'My Store’ (max: 11 alphanumeric characters. This is who the SMS will appear from when received)</comment>
+                    <tooltip>You can enter upto 11 digits or characters</tooltip>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-11</validate>
+                    <depends><field id="voodoo_invoiced_order_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_invoiced_order_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_invoiced_order_enabled">1</field></depends>
+                </field>
+            </group>
+        </section>
+        <section id="tgm_voodoo_admins" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Admin Configuration</label>
+            <tab>tgm_voodoo</tab>
+            <resource>TGM_Voodoo::sms</resource>
+            <group id="admin_configuration" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Admin Configuration</label>
+                <field id="voodoo_admin_enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Admin Notifications</label>
+                    <comment>This option will send SMS to the admin when an Order is Placed</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="voodoo_admin_mobile" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Mobile</label>
+                    <comment>Admin Mobile(s): Enter as many numbers as you like here, comma seperated if multiple e.g. 07700900000,07700900001</comment>
+                    <depends><field id="voodoo_admin_enabled">1</field></depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="voodoo_new_order_admin_message" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for New Order</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_admin_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_hold_admin_message" type="textarea" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Order Hold</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_admin_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_unhold_admin_message" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Order UnHold</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_admin_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_cancelled_admin_message" type="textarea" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Order Cancelled</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_admin_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_invoiced_admin_message" type="textarea" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Invoice Created</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_admin_enabled">1</field></depends>
+                </field>
+                <field id="voodoo_register_admin_message" type="textarea" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter the Message for Customer Registration</label>
+                    <comment>Your Message Content, (Max 918 characters. Text over 160 characters may incurs multiple credit charges)</comment>
+                    <validate>required-entry validate-length minimum-length-1 maximum-length-160</validate>
+                    <tooltip>Enter your default message. You can use {{firstname}} for Firstname, {{middlename}} for Middlename, {{lastname}} for Lastname, {{fax}} for Fax, {{postal}} for Post Code, {{city}} for City, {{email}} for EmailAddress and {{order_id}} for Order Number.</tooltip>
+                    <depends><field id="voodoo_admin_enabled">1</field></depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

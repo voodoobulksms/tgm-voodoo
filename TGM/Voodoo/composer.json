@@ -1,0 +1,26 @@
+{
+    "name": "tgm/voodoo",
+    "description": "SMS Sending module for magento 2",
+    "type": "magento2-module",
+    "extra": {
+        "map": [
+            [
+                "*",
+                "TGM/Voodoo"
+            ]
+        ]
+    },
+    "version": "100.0.2",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "TGM\\Voodoo\\": ""
+        }
+    }
+}
