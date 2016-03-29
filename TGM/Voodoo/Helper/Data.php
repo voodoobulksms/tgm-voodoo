@@ -4,68 +4,121 @@ namespace TGM\Voodoo\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
+    /**
+     * This will used by voodoo sms admins to confirm which e-commerce platform is sending sms
+     * @var string
+     */
     protected $platform         = 'Magento';
+    /**
+     * The version of e-commerce platform
+     * @var string
+     */
     protected $platformVersion  = '2.0';
+    /**
+     * Return type of api method
+     * @var string
+     */
     protected $format           = 'json';
-    protected $host             = 'http://www.voodoosms.com/';
+    /**
+     * To be used by the API
+     * @var string
+     */
+    protected $host             = 'https://www.voodoosms.com/';
 
     /**
      * Getting Basic Configuration
      * These functions are used to get the api username and password
-    */
+     */
 
-    //Getting VoodooSMS API Username
-    public function getVoodooApiUsername(){
+    /**
+     * Getting VoodooSMS API Username
+     * @return string
+     */
+    public function getVoodooApiUsername()
+    {
         return $this->getConfig('tgm_voodoo_configuration/basic_configuration/voodoo_username');
     }
 
-    //Getting VoodooSMS API Password
-    public function getVoodooApiPassword(){
+    /**
+     * Getting VoodooSMS API Password
+     * @return string
+     */
+    public function getVoodooApiPassword()
+    {
         return $this->getConfig('tgm_voodoo_configuration/basic_configuration/voodoo_password');
     }
 
-    /**
-     * Getting Admin Configuration
-     * These functions are used to get the admin mobile number and notification enable or not
-     */
 
-    //Checking Admin SMS is enabled or not
-    public function isAdminNotificationsEnabled(){
+    /**
+     * Checking Admin SMS is enabled or not
+     * @return string
+     */
+    public function isAdminNotificationsEnabled()
+    {
         return $this->getConfig('tgm_voodoo_admins/admin_configuration/voodoo_admin_enabled');
     }
 
-    //Getting Admin Mobile Number
-    public function getAdminSenderId(){
+    /**
+     * Getting Admin Mobile Number
+     * @return string
+     */
+    public function getAdminSenderId()
+    {
         return $this->getConfig('tgm_voodoo_admins/admin_configuration/voodoo_admin_mobile');
     }
 
-    //Getting Admin message for new order
-    public function getAdminMessageForNewOrder(){
+    /**
+     * Getting admin message for new order
+     * @return string
+     */
+    public function getAdminMessageForNewOrder()
+    {
         return $this->getConfig('tgm_voodoo_admins/admin_configuration/voodoo_new_order_admin_message');
     }
 
-    //Getting Admin message for order Hold
-    public function getAdminMessageForOrderHold(){
+    /**
+     * Getting Admin message for order Hold
+     * @return string
+     */
+    public function getAdminMessageForOrderHold()
+    {
         return $this->getConfig('tgm_voodoo_admins/admin_configuration/voodoo_hold_admin_message');
     }
 
-    //Getting Admin message for order unhold
-    public function getAdminMessageForOrderUnHold(){
+    /**
+     * Getting Admin message for order unhold
+     * @return string
+     */
+    public function getAdminMessageForOrderUnHold()
+    {
         return $this->getConfig('tgm_voodoo_admins/admin_configuration/voodoo_unhold_admin_message');
     }
 
-    //Getting Admin message for order cancelled
-    public function getAdminMessageForOrderCancelled(){
+    /**
+     * Getting Admin message for order cancelled
+     * @return string
+     */
+    public function getAdminMessageForOrderCancelled()
+    {
         return $this->getConfig('tgm_voodoo_admins/admin_configuration/voodoo_cancelled_admin_message');
     }
 
-    //Getting Admin message for Invoiced
-    public function getAdminMessageForInvoiced(){
+    /**
+     * Getting Admin message for Invoiced
+     * @return string
+     */
+    public function getAdminMessageForInvoiced()
+    {
         return $this->getConfig('tgm_voodoo_admins/admin_configuration/voodoo_invoiced_admin_message');
     }
 
-    //Getting Admin message for Signup
-    public function getAdminMessageForRegister(){
+
+    /**
+     * Getting Admin message for Sign up
+     * @return string
+     */
+    public function getAdminMessageForRegister()
+    {
         return $this->getConfig('tgm_voodoo_admins/admin_configuration/voodoo_register_admin_message');
     }
 
@@ -75,18 +128,30 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * These functions are used to get the customer information when new order is placed
      */
 
-    //Checking Customer SMS is enabled or not
-    public function isCustomerNotificationsEnabledOnOrder(){
+    /**
+     * Checking Customer SMS is enabled or not
+     * @return string
+     */
+    public function isCustomerNotificationsEnabledOnOrder()
+    {
         return $this->getConfig('tgm_voodoo_orders/new_order/voodoo_new_order_enabled');
     }
 
-    //Getting Customer Sender ID
-    public function getCustomerSenderId(){
+    /**
+     * Getting Customer Sender ID
+     * @return string
+     */
+    public function getCustomerSenderId()
+    {
         return $this->getConfig('tgm_voodoo_orders/new_order/voodoo_new_order_sender_id');
     }
 
-    //Getting Customer Message
-    public function getCustomerMessageOnOrder(){
+    /**
+     * Getting Customer Message
+     * @return string
+     */
+    public function getCustomerMessageOnOrder()
+    {
         return $this->getConfig('tgm_voodoo_orders/new_order/voodoo_new_order_message');
     }
 
@@ -95,18 +160,30 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * These functions are used to get the customer information when order is on hold
      */
 
-    //Checking Customer SMS is enabled or not
-    public function isCustomerNotificationsEnabledOnHold(){
+    /**
+     * Checking Customer SMS is enabled or not
+     * @return string
+     */
+    public function isCustomerNotificationsEnabledOnHold()
+    {
         return $this->getConfig('tgm_voodoo_orders/hold_order/voodoo_hold_order_enabled');
     }
 
-    //Getting Customer Sender ID
-    public function getCustomerSenderIdonHold(){
+    /**
+     * Getting Customer Sender ID
+     * @return string
+     */
+    public function getCustomerSenderIdonHold()
+    {
         return $this->getConfig('tgm_voodoo_orders/hold_order/voodoo_hold_order_sender_id');
     }
 
-    //Getting Customer Message
-    public function getCustomerMessageOnHold(){
+    /**
+     * Getting Customer Message
+     * @return string
+     */
+    public function getCustomerMessageOnHold()
+    {
         return $this->getConfig('tgm_voodoo_orders/hold_order/voodoo_hold_order_message');
     }
 
@@ -115,18 +192,30 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * These functions are used to get the customer information when order is on un hold
      */
 
-    //Checking Customer SMS is enabled or not
-    public function isCustomerNotificationsEnabledOnUnHold(){
+    /**
+     * Checking Customer SMS is enabled or not
+     * @return string
+     */
+    public function isCustomerNotificationsEnabledOnUnHold()
+    {
         return $this->getConfig('tgm_voodoo_orders/unhold_order/voodoo_unhold_order_enabled');
     }
 
-    //Getting Customer Sender ID
-    public function getCustomerSenderIdonUnHold(){
+    /**
+     * Getting Customer Sender ID
+     * @return string
+     */
+    public function getCustomerSenderIdonUnHold()
+    {
         return $this->getConfig('tgm_voodoo_orders/unhold_order/voodoo_unhold_order_sender_id');
     }
 
-    //Getting Customer Message
-    public function getCustomerMessageOnUnHold(){
+    /**
+     * Getting Customer Message
+     * @return string
+     */
+    public function getCustomerMessageOnUnHold()
+    {
         return $this->getConfig('tgm_voodoo_orders/unhold_order/voodoo_unhold_order_message');
     }
 
@@ -135,18 +224,30 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * These functions are used to get the customer information when order is Cancelled
      */
 
-    //Checking Customer SMS is enabled or not
-    public function isCustomerNotificationsEnabledOnCancelled(){
+    /**
+     * Checking Customer SMS is enabled or not
+     * @return string
+     */
+    public function isCustomerNotificationsEnabledOnCancelled()
+    {
         return $this->getConfig('tgm_voodoo_orders/cancelled_order/voodoo_cancelled_order_enabled');
     }
 
-    //Getting Customer Sender ID
-    public function getCustomerSenderIdonCancelled(){
+    /**
+     * Getting Customer Sender ID
+     * @return string
+     */
+    public function getCustomerSenderIdonCancelled()
+    {
         return $this->getConfig('tgm_voodoo_orders/cancelled_order/voodoo_cancelled_order_sender_id');
     }
 
-    //Getting Customer Message
-    public function getCustomerMessageOnCancelled(){
+    /**
+     * Getting Customer Message
+     * @return string
+     */
+    public function getCustomerMessageOnCancelled()
+    {
         return $this->getConfig('tgm_voodoo_orders/cancelled_order/voodoo_cancelled_order_message');
     }
 
@@ -155,18 +256,30 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * These functions are used to get the customer information when invoice is created
      */
 
-    //Checking Customer SMS is enabled or not
-    public function isCustomerNotificationsEnabledOnInvoiced(){
+    /**
+     * Checking Customer SMS is enabled or not
+     * @return string
+     */
+    public function isCustomerNotificationsEnabledOnInvoiced()
+    {
         return $this->getConfig('tgm_voodoo_orders/invoiced_order/voodoo_invoiced_order_enabled');
     }
 
-    //Getting Customer Sender ID
-    public function getCustomerSenderIdonInvoiced(){
+    /**
+     * Getting Customer Sender ID
+     * @return string
+     */
+    public function getCustomerSenderIdonInvoiced()
+    {
         return $this->getConfig('tgm_voodoo_orders/invoiced_order/voodoo_invoiced_order_sender_id');
     }
 
-    //Getting Customer Message
-    public function getCustomerMessageOnInvoiced(){
+    /**
+     * Getting Customer Message
+     * @return string
+     */
+    public function getCustomerMessageOnInvoiced()
+    {
         return $this->getConfig('tgm_voodoo_orders/invoiced_order/voodoo_invoiced_order_message');
     }
 
@@ -175,28 +288,43 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * These functions are used to do the basic functionality
      */
 
-    //Send Configuration path to this function and get the module admin Config data
-    public function getConfig($config_path)
+    /**
+     * Send Configuration path to this function and get the module admin Config data
+     * @param @var $configPath
+     * @return string
+     */
+    public function getConfig($configPath)
     {
         return $this->scopeConfig->getValue(
-            $config_path,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+            $configPath,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
-    //Curl Function to get the result from VoodooSMS API
-    public function curl($url){
-        $ch = curl_init();
+    /**
+     * Curl Function to get the result from VoodooSMS API
+     * @param @var $url
+     * @return string
+     */
+    public function curl($url)
+    {
+        return file_get_contents($url);
+        /*$ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $url);
         $data = curl_exec($ch);
         curl_close($ch);
-        return $data;
+        return $data;*/
     }
 
-    //Verification of API Account
-    public function verifyApi($username,$password){
+    /**
+     * Verification of API Account
+     * @param @var $username
+     * @param @var $password
+     * @return bool
+     */
+    public function verifyApi($username, $password)
+    {
         $host       = $this->host;
         $path       = "vapi/server/getCredit";
         $data       = '?uid='.urlencode($username).
@@ -205,14 +333,24 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $url        = $host.$path.$data.$format;
         $verified   = $this->curl($url);
         $verified   = json_decode($verified);
-        if(isset($verified->credit)){
+        if (isset($verified->credit)) {
             return  true;
         }
         return      false;
     }
 
-    //Sending SMS
-    public function sendSms($username,$password,$senderID,$destination,$message){
+
+    /**
+     * Sending SMS
+     * @param @var $username
+     * @param @var $password
+     * @param @var $senderID
+     * @param @var $destination
+     * @param @var $message
+     * @return void
+     */
+    public function sendSms($username, $password, $senderID, $destination, $message)
+    {
         $host       = $this->host;
         $path       = 'vapi/server/sendSMS?';
         $data       = 'uid='.urlencode($username).
@@ -228,8 +366,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->curl($url);
     }
 
-    //Getting Credits
-    public function getCredit($username,$password){
+    /**
+     * Getting Credits
+     * @param @var $username
+     * @param @var $password
+     * @return bool|string
+     */
+    public function getCredit($username, $password)
+    {
         $host       = $this->host;
         $path       = "vapi/server/getCredit";
         $data       = '?uid='.urlencode($username).
@@ -238,15 +382,21 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $url        = $host.$path.$data.$format;
         $verified   = $this->curl($url);
         $verified   = json_decode($verified);
-        if(isset($verified->credit)){
-            return  number_format($verified->credit,2);
+        if (isset($verified->credit)) {
+            return  number_format($verified->credit, 2);
         }
         return      false;
     }
 
-    //Insert Admin Config Values in the message using order data
-    public function manipulateSMS($message,$data){
-        $keywords   = array(
+    /**
+     * Insert Admin Config Values in the message using order data
+     * @param @var $message
+     * @param @var $data
+     * @return string
+     */
+    public function manipulateSMS($message, $data)
+    {
+        $keywords   = [
             '{order_id}',
             '{firstname}',
             '{middlename}',
@@ -257,8 +407,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             '{cc}',
             '{gender}',
             '{pc}'
-        );
-        $message            = str_replace($keywords,$data,$message);
+        ];
+        $message            = str_replace($keywords, $data, $message);
         return $message;
     }
 
@@ -267,23 +417,31 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * These functions are used to fetch the details using observer
      */
 
-    //Getting Products
+    /**
+     * Getting Products
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return string
+     */
     public function getProduct(\Magento\Framework\Event\Observer $observer)
     {
-        $product_id         = $observer->getProduct()->getId();
+        $productId         = $observer->getProduct()->getId();
         $objectManager      = \Magento\Framework\App\ObjectManager::getInstance();
-        $product            = $objectManager->get('Magento\Catalog\Model\Product')->load($product_id);
+        $product            = $objectManager->get('Magento\Catalog\Model\Product')->load($productId);
         return $product;
     }
 
-    //Getting Order Details
+    /**
+     * Getting Order Details
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return string
+     */
     public function getOrder(\Magento\Framework\Event\Observer $observer)
     {
         $order              = $observer->getOrder();
-        $order_id           = $order->getIncrementId();
+        $orderId           = $order->getIncrementId();
         $objectManager      = \Magento\Framework\App\ObjectManager::getInstance();
         $order              = $objectManager->get('Magento\Sales\Model\Order');
-        $order_information  = $order->loadByIncrementId($order_id);
-        return $order_information;
+        $orderInformation  = $order->loadByIncrementId($orderId);
+        return $orderInformation;
     }
 }

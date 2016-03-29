@@ -7,8 +7,19 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\DB\Ddl\Table;
 
+/**
+ * Class InstallSchema
+ * @package Tutorial\SimpleNews\Setup
+ */
 class InstallSchema implements InstallSchemaInterface
 {
+    /**
+     * To install and create a db
+     * @param SchemaSetupInterface $setup
+     * @param ModuleContextInterface $context
+     * @throws \Zend_Db_Exception
+     * @return void
+     */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $installer = $setup;
