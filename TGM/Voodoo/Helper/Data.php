@@ -2,28 +2,33 @@
 
 namespace TGM\Voodoo\Helper;
 
-class Data extends \Magento\Framework\App\Helper\AbstractHelper
+use \Magento\Framework\App\ObjectManager as ObjectManager;
+use \Magento\Framework\Event\Observer as Observer;
+use \Magento\Store\Model\ScopeInterface as ScopeInterface;
+use \Magento\Framework\App\Helper\AbstractHelper as AbstractHelper;
+
+class Data extends AbstractHelper
 {
     /**
      * This will used by voodoo sms admins to confirm which e-commerce platform is sending sms
      * @var string
      */
-    protected $platform         = 'Magento';
+    protected $_platform         = 'Magento';
     /**
      * The version of e-commerce platform
      * @var string
      */
-    protected $platformVersion  = '2.0';
+    protected $_platformVersion  = '2.0';
     /**
      * Return type of api method
      * @var string
      */
-    protected $format           = 'json';
+    protected $_format           = 'json';
     /**
      * To be used by the API
      * @var string
      */
-    protected $host             = 'https://www.voodoosms.com/';
+    protected $_host             = 'https://www.voodoosms.com/';
 
     /**
      * Getting Basic Configuration
@@ -297,7 +302,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->scopeConfig->getValue(
             $configPath,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -325,12 +330,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function verifyApi($username, $password)
     {
-        $host       = $this->host;
+        $_host       = $this->_host;
         $path       = "vapi/server/getCredit";
         $data       = '?uid='.urlencode($username).
                       '&pass='.urlencode($password);
-        $format     = '&format='.$this->format;
-        $url        = $host.$path.$data.$format;
+        $_format     = '&format='.$this->_format;
+        $url        = $_host.$path.$data.$_format;
         $verified   = $this->curl($url);
         $verified   = json_decode($verified);
         if (isset($verified->credit)) {
@@ -351,7 +356,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function sendSms($username, $password, $senderID, $destination, $message)
     {
-        $host       = $this->host;
+        $_host       = $this->_host;
         $path       = 'vapi/server/sendSMS?';
         $data       = 'uid='.urlencode($username).
                       '&pass='.urlencode($password).
@@ -359,10 +364,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                       '&orig='.urlencode($senderID).
                       '&msg='.urlencode($message).
                       '&validity=300';
-        $format     = '&format='.$this->format;
-        $platform   = '&platform='.$this->platform.
-                      '&platform_version='.$this->platformVersion;
-        $url        = $host.$path.$data.$format.$platform;
+        $_format     = '&format='.$this->_format;
+        $_platform   = '&platform='.$this->_platform.
+                      '&platform_version='.$this->_platformVersion;
+        $url        = $_host.$path.$data.$_format.$_platform;
         $this->curl($url);
     }
 
@@ -374,12 +379,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCredit($username, $password)
     {
-        $host       = $this->host;
+        $_host       = $this->_host;
         $path       = "vapi/server/getCredit";
         $data       = '?uid='.urlencode($username).
                       '&pass='.urlencode($password);
-        $format     = '&format='.$this->format;
-        $url        = $host.$path.$data.$format;
+        $_format     = '&format='.$this->_format;
+        $url        = $_host.$path.$data.$_format;
         $verified   = $this->curl($url);
         $verified   = json_decode($verified);
         if (isset($verified->credit)) {
@@ -419,29 +424,29 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * Getting Products
-     * @param \Magento\Framework\Event\Observer $observer
+     * @param Observer $observer
      * @return string
      */
-    public function getProduct(\Magento\Framework\Event\Observer $observer)
+    public function getProduct(Observer $observer)
     {
-        $productId         = $observer->getProduct()->getId();
-        $objectManager      = \Magento\Framework\App\ObjectManager::getInstance();
+        $productId          = $observer->getProduct()->getId();
+        $objectManager      = ObjectManager::getInstance();
         $product            = $objectManager->get('Magento\Catalog\Model\Product')->load($productId);
         return $product;
     }
 
     /**
      * Getting Order Details
-     * @param \Magento\Framework\Event\Observer $observer
+     * @param Observer $observer
      * @return string
      */
-    public function getOrder(\Magento\Framework\Event\Observer $observer)
+    public function getOrder(Observer $observer)
     {
         $order              = $observer->getOrder();
-        $orderId           = $order->getIncrementId();
-        $objectManager      = \Magento\Framework\App\ObjectManager::getInstance();
+        $orderId            = $order->getIncrementId();
+        $objectManager      = ObjectManager::getInstance();
         $order              = $objectManager->get('Magento\Sales\Model\Order');
-        $orderInformation  = $order->loadByIncrementId($orderId);
+        $orderInformation   = $order->loadByIncrementId($orderId);
         return $orderInformation;
     }
 }
