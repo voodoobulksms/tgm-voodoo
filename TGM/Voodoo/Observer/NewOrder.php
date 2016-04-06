@@ -2,7 +2,9 @@
 
 namespace TGM\Voodoo\Observer;
 use Magento\Framework\Event\ObserverInterface;
-
+use \Magento\Framework\Event\Observer       as Observer;
+use \Magento\Framework\View\Element\Context as Context;
+use \TGM\Voodoo\Helper\Data                 as Helper;
 /**
  * Customer login observer
  */
@@ -88,24 +90,24 @@ class NewOrder implements ObserverInterface
 
     /**
      * Constructor
-     * @param \Magento\Framework\View\Element\Context $context
-     * @param \TGM\Voodoo\Helper\Data $helper _helper
+     * @param Context $context
+     * @param Helper $helper _helper
      */
     public function __construct(
-        \Magento\Framework\View\Element\Context $context,
-        \TGM\Voodoo\Helper\Data $helper
+        Context $context,
+        Helper $helper
     ) {
-        $this->_helper = $helper;
+        $this->_helper  = $helper;
         $this->_request = $context->getRequest();
-        $this->_layout = $context->getLayout();
+        $this->_layout  = $context->getLayout();
     }
 
     /**
      * The execute class
-     * @param \Magento\Framework\Event\Observer $observer
+     * @param Observer $observer
      * @return void
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute(Observer $observer)
     {
         /**
          * Getting Module Configuration from admin panel
@@ -118,7 +120,7 @@ class NewOrder implements ObserverInterface
         $this->password         = $this->_helper->getVoodooApiPassword();
 
         //Getting Sender ID
-        $this->senderId        = $this->_helper->getCustomerSenderId();
+        $this->senderId         = $this->_helper->getCustomerSenderId();
 
         //Getting Message
         $this->message          = $this->_helper->getCustomerMessageOnOrder();

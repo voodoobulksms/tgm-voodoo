@@ -3,7 +3,9 @@
 namespace TGM\Voodoo\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
-
+use \Magento\Framework\Event\Observer       as Observer;
+use \Magento\Framework\View\Element\Context as Context;
+use \TGM\Voodoo\Helper\Data                 as Helper;
 /**
  * Customer login observer
  */
@@ -89,24 +91,24 @@ class InvoicePay implements ObserverInterface
 
     /**
      * Constructor
-     * @param \Magento\Framework\View\Element\Context $context
-     * @param \TGM\Voodoo\Helper\Data $helper _helper
+     * @param Context $context
+     * @param Helper $helper _helper
      */
     public function __construct(
-        \Magento\Framework\View\Element\Context $context,
-        \TGM\Voodoo\Helper\Data $helper
+        Context $context,
+        Helper $helper
     ) {
-        $this->_helper = $helper;
+        $this->_helper  = $helper;
         $this->_request = $context->getRequest();
-        $this->_layout = $context->getLayout();
+        $this->_layout  = $context->getLayout();
     }
 
     /**
      * The execute class
-     * @param \Magento\Framework\Event\Observer $observer
+     * @param Observer $observer
      * @return void
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute(Observer $observer)
     {
         /**
          * Getting Module Configuration from admin panel
@@ -122,10 +124,10 @@ class InvoicePay implements ObserverInterface
         $this->senderId = $this->_helper->getCustomerSenderIdonInvoiced();
 
         //Getting Message
-        $this->message = $this->_helper->getCustomerMessageOnInvoiced();
+        $this->message  = $this->_helper->getCustomerMessageOnInvoiced();
 
         //Getting Customer Notification value
-        $this->enabled = $this->_helper->isCustomerNotificationsEnabledOnInvoiced();
+        $this->enabled  = $this->_helper->isCustomerNotificationsEnabledOnInvoiced();
 
         //Checking if sms is enable or not
         if ($this->enabled == 1) {
@@ -136,19 +138,19 @@ class InvoicePay implements ObserverInterface
             $verificationResult = $this->_helper->verifyApi($this->username, $this->password);
             if ($verificationResult == true) {
                 //Getting Order Details
-                $invoice = $observer->getInvoice();
-                $order = $invoice->getOrder($invoice);
+                $invoice   = $observer->getInvoice();
+                $order     = $invoice->getOrder($invoice);
                 $orderData = [
-                    'orderId' => $order->getIncrementId(),
-                    'firstname' => $order->getCustomerFirstname(),
-                    '$middlename' => $order->getCustomerMiddlename(),
-                    'lastname' => $order->getCustomerLastname(),
-                    'totalPrice' => number_format($order->getGrandTotal(), 2),
-                    'countryCode' => $order->getOrderCurrencyCode(),
-                    'protectCode' => $order->getProtectCode(),
-                    'customerDob' => $order->getCustomerDob(),
+                    'orderId'       => $order->getIncrementId(),
+                    'firstname'     => $order->getCustomerFirstname(),
+                    '$middlename'   => $order->getCustomerMiddlename(),
+                    'lastname'      => $order->getCustomerLastname(),
+                    'totalPrice'    => number_format($order->getGrandTotal(), 2),
+                    'countryCode'   => $order->getOrderCurrencyCode(),
+                    'protectCode'   => $order->getProtectCode(),
+                    'customerDob'   => $order->getCustomerDob(),
                     'customerEmail' => $order->getCustomerEmail(),
-                    'gender' => ($order->getCustomerGender() ? 'Female' : 'Male')
+                    'gender'        => ($order->getCustomerGender() ? 'Female' : 'Male')
                 ];
                 //Getting Telephone Number
                 $this->destination = $order->getBillingAddress()->getTelephone();

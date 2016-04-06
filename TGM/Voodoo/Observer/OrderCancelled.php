@@ -2,7 +2,10 @@
 
 namespace TGM\Voodoo\Observer;
 
+use Magento\Framework\Event\Observer       as Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\View\Element\Context as Context;
+use TGM\Voodoo\Helper\Data                 as Helper;
 
 /**
  * Customer login observer
@@ -89,31 +92,30 @@ class OrderCancelled implements ObserverInterface
 
     /**
      * Constructor
-     * @param \Magento\Framework\View\Element\Context $context
-     * @param \TGM\Voodoo\Helper\Data $helper _helper
+     * @param Context $context
+     * @param Helper $helper _helper
      */
     public function __construct(
-        \Magento\Framework\View\Element\Context $context,
-        \TGM\Voodoo\Helper\Data $helper
+        Context $context,
+        Helper $helper
     ) {
-        $this->_helper = $helper;
+        $this->_helper  = $helper;
         $this->_request = $context->getRequest();
-        $this->_layout = $context->getLayout();
+        $this->_layout  = $context->getLayout();
     }
 
     /**
      * The execute class
-     * @param \Magento\Framework\Event\Observer $observer
+     * @param Observer $observer
      * @return void
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute(Observer $observer)
     {
         /**
          * Checking either this call is for order cancelled or not
         */
 
-        if (strpos($_SERVER['REQUEST_URI'], 'cancel') != false) {
-
+        if (strpos($_SERVER['REQUEST_URI'], 'order/cancel') !== false) {
             /**
              * Getting Module Configuration from admin panel
              */
@@ -125,7 +127,7 @@ class OrderCancelled implements ObserverInterface
             $this->password         = $this->_helper->getVoodooApiPassword();
 
             //Getting Sender ID
-            $this->senderId        = $this->_helper->getCustomerSenderIdonCancelled();
+            $this->senderId         = $this->_helper->getCustomerSenderIdonCancelled();
 
             //Getting Message
             $this->message          = $this->_helper->getCustomerMessageOnCancelled();
@@ -154,7 +156,7 @@ class OrderCancelled implements ObserverInterface
                         'protectCode'   => $order->getProtectCode(),
                         'customerDob'   => $order->getCustomerDob(),
                         'customerEmail' => $order->getCustomerEmail(),
-                        'gender'        => ($order->getCustomerGender()?'Female':'Male')
+                        'gender' => ($order->getCustomerGender() ? 'Female' : 'Male')
                     ];
 
                     //Getting Telephone Number
